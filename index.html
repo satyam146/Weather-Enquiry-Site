@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <title>Weather Enquiry</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortest icon" href="th.png">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <style>
+        *{
+            margin: 0;
+            font-family: 'helvetica';
+            padding: 0;
+        }
+
+        html{
+            overflow-x: hidden;
+        }
+        .titleData span {
+            padding: 5px 10px 5px 0;
+            color:#f5f5f5;
+            font-size: 15px;
+        }
+
+        header {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.91), rgba(0, 0, 0, 0.55)),url(cloud.jpg);
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            background-attachment: fixed;
+        }
+        table {
+            display: none;
+            border-collapse: collapse;	
+        }
+
+        table tr td {
+            border:  2px solid #333;
+            height: 4%;
+            vertical-align:  middle;
+            border-width: 0px;
+            font-size: 15px;
+            padding: 12px;
+            color: rgb(206, 192, 114);
+
+        }
+        table tr td:last-child {
+            font-size: 16px;
+
+            color:#f1f1f1;
+
+        }
+        form {
+            background: transparent;
+            width: 25%;
+            margin: 2% auto 5%;
+            text-align: center;
+            height: 200%;
+            color: #fff;
+        }
+        #ErorrMsg {
+            display: none;
+            color: #aab438;
+            margin: 0 auto;
+            font-family:  "Comic Sans MS", cursive, sans-serif;
+            text-align: center;
+            font-size: 15px;
+        } 
+        #heading_title{
+            color: #33e2db; 
+            font-size: 38px; 
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        @media only screen and (max-width: 460px) {
+            form {
+                width: 80%;
+                margin: 0 auto 2%;
+                
+            }
+            #heading_title{
+                margin-bottom: 25px;
+            }
+            header {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.91), rgba(0, 0, 0, 0.55)),url(clouds.jpg);
+            background-size: cover;
+            background-position: center;
+            height: 145vh;
+            background-attachment: fixed;
+            }
+        }
+        @media only screen and (max-width: 900px) {
+            form {
+                width: 40%;
+                margin: 0 auto 2%;
+            }
+        }
+        @media only screen and (max-width: 600px) {
+            form {
+                width: 80%;
+                margin: 0 auto 2%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<header>
+    <div class="container-fluid">
+        <a href="index.html"><img src="giphy.gif" style="width: 63px;margin: 1.5% 2%;"></a><br>
+    <div class="main_container">            
+    <form class="form">
+        <p id="heading_title">Get Weather!</p>    
+        <div class="input-group">
+            <input id="place" type="text" class="form-control" name="name" placeholder="Enter City Name" style=" border: 0;  border-bottom: 2px solid #fff;color: #fff; background: transparent;" required=""> <span id="getApi" class="input-group-addon" style="cursor: pointer;"><i class="glyphicon glyphicon-search" style="color: #d8630d"></i></span>
+        </div>
+    </form><br>
+        <p id="ErorrMsg" style="display: none;">! City Not Found</p>
+    </div>            
+        <div class="container-fluid api-container" style="width: 75%;display: block;margin: 0 auto;">
+            <div class="row">
+                <div class="col-sm-4">
+                    <table id="t1" style="display: block;">
+                        <tbody><tr>
+                            <td>City Name</td>
+                            <td><span id="name">Mumbai</span></td>
+                        </tr>
+                        <tr>
+                            <td>Country Code  </td>
+                            <td><span id="sysCountry">IN</span></td>
+                        </tr>
+                        <tr>
+                            <td>Max Temp (℃) </td>
+                            <td><span id="tempMax">29</span></td>
+                        </tr>
+                        <tr>
+                            <td>Min Temp (℃)</td>
+                            <td><span id="tempMin">29</span></td>
+                        </tr>
+                    </tbody></table>                   
+                </div>
+                <div class="col-sm-4">
+                    <table id="t2" style="display: block;">
+                        <tbody><tr>
+                            <td>Current Temp (℃)</td>
+                            <td><span id="mainTemp">29</span></td>
+                        </tr>
+                        <tr>
+                            <td>Pressure (atm)  </td>
+                            <td><span id="mainPressure">1010</span></td>
+                        </tr>
+                        <tr>
+                            <td>Humidity </td>
+                            <td><span id="mainhumidity">79</span></td>
+                        </tr>
+                        <tr>
+                            <td>Time Zone</td>
+                            <td><span id="timezone">19800</span></td>
+                        </tr>
+                    </tbody></table>
+                </div>
+                <div class="col-sm-4">
+                    <table id="t3" style="display: block;">
+                        <tbody><tr>
+                            <td>Weather Condition </td>
+                            <td><span id="weatherDescription">haze</span></td>
+                        </tr>
+                        <tr>
+                            <td>Longitude  </td>
+                            <td><span id="coordLon">72.8479</span></td>
+                        </tr>
+                        <tr>
+                            <td>Latitude  </td>
+                            <td><span id="coordLat">19.0144</span></td>
+                        </tr>
+                        
+                        <tr>
+                            <td>Wind Speed (m/s)</td>
+                            <td><span id="windSpeed">1.54</span></td>
+                        </tr>
+                    </tbody></table>
+                </div>                   
+            </div>
+        </div>
+    </div>
+</header>
+<div style="text-align: right;position: fixed;z-index:9999999;bottom: 0;width: auto;right: 1%;cursor: pointer;line-height: 0;display:block !important;"><a title="Hosted on free web hosting 000webhost.com. Host your own website for FREE." target="_blank" href="https://www.000webhost.com/?utm_source=000webhostapp&amp;utm_campaign=000_logo&amp;utm_medium=website&amp;utm_content=footer_img"><img src="https://cdn.000webhost.com/000webhost/logo/footer-powered-by-000webhost-white2.png" alt="www.000webhost.com"></a></div><script>function getCookie(t){for(var e=t+"=",n=decodeURIComponent(document.cookie).split(";"),o=0;o<n.length;o++){for(var i=n[o];" "==i.charAt(0);)i=i.substring(1);if(0==i.indexOf(e))return i.substring(e.length,i.length)}return""}getCookie("hostinger")&&(document.cookie="hostinger=;expires=Thu, 01 Jan 1970 00:00:01 GMT;",location.reload());var wordpressAdminBody=document.getElementsByClassName("wp-admin")[0],notification=document.getElementsByClassName("notice notice-success is-dismissible"),hostingerLogo=document.getElementsByClassName("hlogo"),mainContent=document.getElementsByClassName("notice_content")[0];if(null!=wordpressAdminBody&&notification.length>0&&null!=mainContent){var googleFont=document.createElement("link");googleFontHref=document.createAttribute("href"),googleFontRel=document.createAttribute("rel"),googleFontHref.value="https://fonts.googleapis.com/css?family=Roboto:300,400,600,700",googleFontRel.value="stylesheet",googleFont.setAttributeNode(googleFontHref),googleFont.setAttributeNode(googleFontRel);var css="@media only screen and (max-width: 576px) {#main_content {max-width: 320px !important;} #main_content h1 {font-size: 30px !important;} #main_content h2 {font-size: 40px !important; margin: 20px 0 !important;} #main_content p {font-size: 14px !important;} #main_content .content-wrapper {text-align: center !important;}} @media only screen and (max-width: 781px) {#main_content {margin: auto; justify-content: center; max-width: 445px;}} @media only screen and (max-width: 1325px) {.web-hosting-90-off-image-wrapper {position: absolute; max-width: 95% !important;} .notice_content {justify-content: center;} .web-hosting-90-off-image {opacity: 0.3;}} @media only screen and (min-width: 769px) {.notice_content {justify-content: space-between;} #main_content {margin-left: 5%; max-width: 445px;} .web-hosting-90-off-image-wrapper {position: absolute; display: flex; justify-content: center; width: 100%; }} .web-hosting-90-off-image {max-width: 90%;} .content-wrapper {min-height: 454px; display: flex; flex-direction: column; justify-content: center; z-index: 5} .notice_content {display: flex; align-items: center;} * {-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;} .upgrade_button_red_sale{box-shadow: 0 2px 4px 0 rgba(255, 69, 70, 0.2); max-width: 350px; border: 0; border-radius: 3px; background-color: #ff4546 !important; padding: 15px 55px !important; font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 600; color: #ffffff;} .upgrade_button_red_sale:hover{color: #ffffff !important; background: #d10303 !important;}",style=document.createElement("style"),sheet=window.document.styleSheets[0];style.styleSheet?style.styleSheet.cssText=css:style.appendChild(document.createTextNode(css)),document.getElementsByTagName("head")[0].appendChild(style),document.getElementsByTagName("head")[0].appendChild(googleFont);var button=document.getElementsByClassName("upgrade_button_red")[0],link=button.parentElement;link.setAttribute("href","https://www.hostinger.com/hosting-starter-offer?utm_source=000webhost&utm_medium=panel&utm_campaign=000-wp"),link.innerHTML='<button class="upgrade_button_red_sale">Go for it</button>',(notification=notification[0]).setAttribute("style","padding-bottom: 0; padding-top: 5px; background-color: #040713; background-size: cover; background-repeat: no-repeat; color: #ffffff; border-left-color: #040713;"),notification.className="notice notice-error is-dismissible";var mainContentHolder=document.getElementById("main_content");mainContentHolder.setAttribute("style","padding: 0;"),hostingerLogo[0].remove();var h1Tag=notification.getElementsByTagName("H1")[0];h1Tag.className="000-h1",h1Tag.innerHTML="Black Friday Prices",h1Tag.setAttribute("style",'color: white; font-family: "Roboto", sans-serif; font-size: 22px; font-weight: 700; text-transform: uppercase;');var h2Tag=document.createElement("H2");h2Tag.innerHTML="Get 90% Off!",h2Tag.setAttribute("style",'color: white; margin: 10px 0 15px 0; font-family: "Roboto", sans-serif; font-size: 60px; font-weight: 700; line-height: 1;'),h1Tag.parentNode.insertBefore(h2Tag,h1Tag.nextSibling);var paragraph=notification.getElementsByTagName("p")[0];paragraph.innerHTML="Get Web Hosting for $0.99/month + SSL Certificate for FREE!",paragraph.setAttribute("style",'font-family: "Roboto", sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 15px;');var list=notification.getElementsByTagName("UL")[0];list.remove();var org_html=mainContent.innerHTML,new_html='<div class="content-wrapper">'+mainContent.innerHTML+'</div><div class="web-hosting-90-off-image-wrapper"><img class="web-hosting-90-off-image" src="https://cdn.000webhost.com/000webhost/promotions/bf-2020-wp-inject-img.png"></div>';mainContent.innerHTML=new_html;var saleImage=mainContent.getElementsByClassName("web-hosting-90-off-image")[0]}</script>
+<script>
+// On Page Load the Weather Data of Current Location
+$(document).ready(function(){
+    $.getJSON('http://ipinfo.io', function(data){
+        apiWeather ="http://api.openweathermap.org/data/2.5/weather?q="
+        apiId="&APPID=d7002f943e2b9c5bebdf8b6d16602a87";
+        unit="&units=metric";
+        url= (apiWeather+data.city+apiId+unit);
+    $.get(url, function(response){
+        onApiSuccess(response);
+        document.getElementById("place").value = response.name;
+        });
+    });
+    $('#getApi').click(function(){
+        var apiWeather ="http://api.openweathermap.org/data/2.5/weather?q="
+        var apiId="&APPID=d7002f943e2b9c5bebdf8b6d16602a87";
+        var unit="&units=metric";
+        var city = document.getElementById("place").value;
+        var hr= new XMLHttpRequest();
+        var url= apiWeather+city+apiId+unit;
+        hr.onreadystatechange = function(){
+            if(this.readyState ==4 && this.status==200){
+                var getData = JSON.parse(hr.responseText);
+                onApiSuccess(getData);
+            }
+            else {
+                displayErrorMsg();
+            }
+        }
+        hr.open("GET",url,true);
+        hr.send();
+    });
+});
+
+//On API Success, Show the Data on screen
+function onApiSuccess(getData){
+    document.getElementById("ErorrMsg").style.display='none';
+    document.getElementById('t1').style.display='block';
+    document.getElementById('t2').style.display='block';	 
+    document.getElementById('t3').style.display='block';	 
+    document.getElementById("coordLon").innerHTML=getData.coord.lon;
+    document.getElementById("coordLat").innerHTML=getData.coord.lat;
+    document.getElementById("weatherDescription").innerHTML=getData.weather[0].description;
+    document.getElementById("mainTemp").innerHTML=getData.main.temp;
+    document.getElementById("mainPressure").innerHTML=getData.main.pressure;
+    document.getElementById("mainhumidity").innerHTML=getData.main.humidity;
+    document.getElementById("tempMin").innerHTML=getData.main.temp_min;
+    document.getElementById("tempMax").innerHTML=getData.main.temp_max;
+    document.getElementById("windSpeed").innerHTML=getData.wind.speed;
+    document.getElementById("sysCountry").innerHTML=getData.sys.country;
+    document.getElementById("timezone").innerHTML=getData.timezone;
+    document.getElementById("name").innerHTML=getData.name;
+}
+
+//Show Error and hide table cells if cityname is incorrect
+function displayErrorMsg(){
+    document.getElementById('t1').style.display='none';	 
+    document.getElementById('t2').style.display='none';
+    document.getElementById('t3').style.display='none';
+    document.getElementById("ErorrMsg").style.display='block';
+}
+</script> 
+</body></html>
