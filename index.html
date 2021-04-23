@@ -191,8 +191,8 @@
 <script>
 // On Page Load the Weather Data of Current Location
 $(document).ready(function(){
-    $.getJSON('http://ipinfo.io', function(data){
-        apiWeather ="http://api.openweathermap.org/data/2.5/weather?q="
+    $.getJSON('https://ipinfo.io', function(data){
+        apiWeather ="https://api.openweathermap.org/data/2.5/weather?q="
         apiId="&APPID=d7002f943e2b9c5bebdf8b6d16602a87";
         unit="&units=metric";
         url= (apiWeather+data.city+apiId+unit);
@@ -202,7 +202,7 @@ $(document).ready(function(){
         });
     });
     $('#getApi').click(function(){
-        var apiWeather ="http://api.openweathermap.org/data/2.5/weather?q="
+        var apiWeather ="https://api.openweathermap.org/data/2.5/weather?q="
         var apiId="&APPID=d7002f943e2b9c5bebdf8b6d16602a87";
         var unit="&units=metric";
         var city = document.getElementById("place").value;
